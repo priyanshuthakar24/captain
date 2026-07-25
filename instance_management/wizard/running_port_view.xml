@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_running_port" model="ir.ui.view">
+            <field name="name">view.running.port</field>
+            <field name="model">running.port</field>
+            <field name="arch" type="xml">
+                <form string="Running Port">
+                    <group colspan="4">
+                        <field name="name" nolabel="1" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_running_port" model="ir.actions.act_window">
+            <field name="name">Running Instance Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">running.port</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem id="menu_running_port" action="action_running_port" parent="menu_instance" groups="instance_manager_group"/>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_instance_instance_user,Instance.instance.user,model_instance_instance,instance_user_group,1,1,0,0
+access_instance_instance_manager,Instance.instance.manager,model_instance_instance,instance_manager_group,1,1,1,1
+access_branch_user,branch.user,model_branch_branch,instance_user_group,1,0,0,0
+access_branch_manager,branch.manager,model_branch_branch,instance_manager_group,1,1,1,1
+access_repo_user,repo.repo.user,model_repo_repo,instance_user_group,1,0,0,0
+access_repo_manager,repo.repo.manager,model_repo_repo,instance_manager_group,1,1,1,1
+access_instance_info,instance.info,model_instance_info,base.group_user,1,1,1,1
+access_module_info,module.info,model_module_info,base.group_user,1,1,1,1
+access_module_industry,module.industry,model_module_industry,base.group_user,1,1,1,1
+access_config_para_user,access.config.para.user,base.model_ir_config_parameter,instance_user_group,1,0,0,0
+access_idle_instance_user,idle.instance.user,model_idle_instance,base.group_user,1,1,1,1
+access_download_log_user,download.log.user,model_download_log,base.group_user,1,1,1,1
+access_run_multiple_ins_user,run.multiple.ins.user,model_run_multiple_ins,base.group_user,1,1,1,1
+access_running_port_user,running.port.user,model_running_port,base.group_user,1,1,1,1

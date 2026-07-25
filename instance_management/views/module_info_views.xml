@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Module info list view -->  
+        <record id="view_tree_module_info" model="ir.ui.view">
+            <field name="name">view.tree.modul.info</field>
+            <field name="model">module.info</field>
+            <field name="arch" type="xml">
+                <list string="Module Info">
+                    <field name="name"/>
+                    <field name="tech_name"/>
+                    <field name="info"/>
+                    <field name="avail_versions"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_form_module_info" model="ir.ui.view">
+            <field name="name">view.form.modul.info</field>
+            <field name="model">module.info</field>
+            <field name="arch" type="xml">
+                <form string="Module Info">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="tech_name"/>
+                                <field name="info" required="1"/>
+                            </group>
+                            <group>
+                                <field name="industry_id"/>
+                                <field name="avail_versions"/>
+                                <field name="responsibles" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Instance detail">
+                                <field name="instance_ids">
+                                    <list editable="bottom">
+                                        <field name="instance_id"/>
+                                        <field name="version"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_module_info" model="ir.actions.act_window">
+            <field name="name">Module Info</field>
+            <field name="res_model">module.info</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_module" name="Module Info" parent="menu_main_instance"/>
+        <menuitem id="menu_module_child" name="Module Info" parent="menu_module" action="action_module_info"/>
+    </data>
+</odoo>

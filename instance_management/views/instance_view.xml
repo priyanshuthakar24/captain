@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Instance list view -->
+        <record id="view_list_instance" model="ir.ui.view">
+            <field name="name">view.list.instance</field>
+            <field name="model">instance.instance</field>
+            <field name="arch" type="xml">
+                <list string="Instance">
+                    <field name="name"/>
+                    <field name="odoo_version"/>
+                    <field name="xmlrpc_port"/>
+                    <field name="db_name"/>
+                    <field name="pid"/>
+                    <field name="requested_by"/>
+                    <field name="long_polling_port"/>
+                    <field name="status" string="Instance Status"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_search_instance" model="ir.ui.view">
+            <field name="name">view.search.instance</field>
+            <field name="model">instance.instance</field>
+            <field name="arch" type="xml">
+                <search string="Search Instance">
+                    <field name="name"/>
+                    <field name="odoo_version"/>
+                    <field name="xmlrpc_port"/>
+                    <field name="long_polling_port"/>
+                    <field name="db_name"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="State" name="state" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Version" name="version" domain="[]" context="{'group_by':'odoo_version'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- Instance form view -->
+        <record id="view_form_instance" model="ir.ui.view">
+            <field name="name">view.form.instance</field>
+            <field name="model">instance.instance</field>
+            <field name="arch" type="xml">
+                <form string="Instance">
+                    <header>
+                        <button name="validate" string="Validate" type="object" states="draft" class="oe_highlight" invisible="state != 'draft'" groups="instance_management.instance_manager_group"/>
+                        <button name="start_server" string="Start" type="object" class="oe_highlight" invisible="status != 'Stopped'" help="Click to start the instance"/>
+                        <button name="stop_server" string="Stop" type="object" class="oe_highlight" invisible="status == 'Stopped'" help="Click to stop the instance"/>
+                        <button name="restart_server" string="Restart" type="object" states="confirm" class="oe_highlight" help="Click to restart the instance"/>
+                        <button name="download_logfile" string="Download Log File" type="object" invisible="state != 'confirm'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group colspan="4">
+                            <field name="name" required="1"/>
+                            <field name="odoo_version" required="1" domain="[('for_version','=',True)]" widget="selection"/>
+                            <field name="xmlrpc_port"/>
+                            <field name="db_name"/>
+                            <field name="long_polling_port"/>
+                            <field name="requested_by"/>
+                            <field name="status"/>
+                        </group>
+                        <notebook>
+                            <page name="server_config" string="Server File Configuration" groups="instance_management.instance_manager_group">
+                                <group name="server_config" groups="instance_management.instance_manager_group">
+                                    <field name="server_config" placeholder="Define config parameters like [Options]admin_user,db_host,db_port,addons_path etc" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Branch" name="branch_path">
+                                <field name="branch_ids">
+                                    <list string="Branch" editable="top">
+                                        <field name="branch_path"/>
+                                        <field name="repo_id"/>
+                                        <button name="get_revisions" string="Latest Pull" type="object" help="Click to take latest revisions on the defined branch path"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Action for Instance -->
+        <record id="action_instance" model="ir.actions.act_window">
+            <field name="name">Instance</field>
+            <field name="res_model">instance.instance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'is_restrict_instence_based_on_users': True}</field>
+        </record>
+        <!-- Menus -->
+        <menuitem id="menu_main_instance" name="Instance Management" groups="instance_user_group,instance_manager_group"/>
+        <menuitem id="menu_instance" name="Instance Management" parent="menu_main_instance" groups="instance_user_group,instance_manager_group"/>
+        <menuitem id="menu_instance_child" name="Instance" parent="menu_instance" action="action_instance" groups="instance_user_group,instance_manager_group"/>
+        <!-- Repo list view -->
+        <record id="view_list_repo" model="ir.ui.view">
+            <field name="name">view.list.repo</field>
+            <field name="model">repo.repo</field>
+            <field name="arch" type="xml">
+                <list string="Repository">
+                    <field name="name"/>
+                    <field name="code"/>
+                </list>
+            </field>
+        </record>
+        <!-- Action for Repo -->
+        <record id="action_repo" model="ir.actions.act_window">
+            <field name="name">Repository</field>
+            <field name="res_model">repo.repo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem id="menu_repo_repo" name="Repository" parent="menu_instance" action="action_repo" groups="instance_manager_group"/>
+    </data>
+</odoo>
