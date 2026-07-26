@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_idle_instance" model="ir.ui.view">
+            <field name="name">view.idle.instance</field>
+            <field name="model">idle.instance</field>
+            <field name="arch" type="xml">
+                <form string="Idle Instance">
+                    <group cols="4">
+                        <field name="no_of_days" invisible="state == True"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="name" nolabel="1" readonly="1" invisible="state == False"/>
+                        <field name="state" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="confirm" string="Confirm" type="object" class="oe_highlight" invisible="state == True"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_idle_instance" model="ir.actions.act_window">
+            <field name="name">Idle Instance Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">idle.instance</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem id="menu_idle_instance" action="action_idle_instance" parent="menu_instance" groups="instance_manager_group"/>
+    </data>
+</odoo>
