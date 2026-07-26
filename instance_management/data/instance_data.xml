@@ -3,61 +3,6 @@
     <data noupdate="1">
 
         <!-- System Parameter for odoo version's deamon configuration -->
-        <record id="v7_deamon_id" model="ir.config_parameter">
-            <field name="key">7.0</field>
-            <field name="value">/home/serpentcs/workspace/7.0/</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v8_deamon_id" model="ir.config_parameter">
-            <field name="key">8.0</field>
-            <field name="value">/home/serpentcs/workspace/odoo/openerp-server</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v9_deamon_id" model="ir.config_parameter">
-            <field name="key">9.0</field>
-            <field name="value">/home/serpentcs/workspace/ODOO/openerp-server</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v10_deamon_id" model="ir.config_parameter">
-            <field name="key">10.0</field>
-            <field name="value">/home/serpentcs/workspace/10.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v11_deamon_id" model="ir.config_parameter">
-            <field name="key">11.0</field>
-            <field name="value">/home/serpentcs/workspace/11.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v12_deamon_id" model="ir.config_parameter">
-            <field name="key">12.0</field>
-            <field name="value">/home/serpentcs/workspace/12.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v13_deamon_id" model="ir.config_parameter">
-            <field name="key">13.0</field>
-            <field name="value">/home/serpentcs/workspace/13.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v14_deamon_id" model="ir.config_parameter">
-            <field name="key">14.0</field>
-            <field name="value">/home/serpentcs/workspace/14.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v15_deamon_id" model="ir.config_parameter">
-            <field name="key">15.0</field>
-            <field name="value">/home/serpentcs/workspace/15.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v16_deamon_id" model="ir.config_parameter">
-            <field name="key">16.0</field>
-            <field name="value">/home/serpentcs/workspace/16.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
-        <record id="v17_deamon_id" model="ir.config_parameter">
-            <field name="key">17.0</field>
-            <field name="value">/home/serpentcs/workspace/17.0/odoo-bin</field>
-            <field name="for_version">1</field>
-        </record>
         <record id="v18_deamon_id" model="ir.config_parameter">
             <field name="key">18.0</field>
             <field name="value">/home/serpentcs/workspace/18.0/odoo-bin</field>
@@ -72,7 +17,7 @@
         <!-- System Parameter for instance config and log file directory -->
         <record id="instance_config" model="ir.config_parameter">
             <field name="key">instance_config_path</field>
-            <field name="value">/home/serpentcs/odoo_instance/</field>
+            <field name="value">/home/serpentcs/odoo_instance_config/</field>
         </record>
         <record id="instance_log" model="ir.config_parameter">
             <field name="key">instance_logfile_path</field>
@@ -86,11 +31,6 @@
         </record>
         
         <!-- demo data for repository -->
-        <record id="bzr_repo" model="repo.repo">
-            <field name="name">BZR</field>
-            <field name="code">bzr</field>
-        </record>
-        
         <record id="git_repo" model="repo.repo">
             <field name="name">GIT</field>
             <field name="code">git</field>

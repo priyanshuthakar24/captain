@@ -9,11 +9,11 @@
                 <list string="Instance">
                     <field name="name"/>
                     <field name="odoo_version"/>
-                    <field name="xmlrpc_port"/>
+                    <field name="http_port"/>
                     <field name="db_name"/>
                     <field name="pid"/>
                     <field name="requested_by"/>
-                    <field name="long_polling_port"/>
+                    <field name="gevent_port"/>
                     <field name="status" string="Instance Status"/>
                     <field name="state"/>
                 </list>
@@ -27,8 +27,8 @@
                 <search string="Search Instance">
                     <field name="name"/>
                     <field name="odoo_version"/>
-                    <field name="xmlrpc_port"/>
-                    <field name="long_polling_port"/>
+                    <field name="http_port"/>
+                    <field name="gevent_port"/>
                     <field name="db_name"/>
                     <field name="state"/>
                     <group>
@@ -79,9 +79,9 @@
                         <group col="4">
                             <field name="name" required="1"/>
                             <field name="odoo_version" required="1" domain="[('for_version','=',True)]" widget="selection"/>
-                            <field name="xmlrpc_port"/>
+                            <field name="http_port"/>
                             <field name="db_name"/>
-                            <field name="long_polling_port"/>
+                            <field name="gevent_port"/>
                             <field name="requested_by"/>
                             <field name="status"/>
                         </group>
