@@ -32,26 +32,26 @@
                     <field name="db_name"/>
                     <field name="state"/>
                     <group>
-                <filter name="group_state"
-                        string="State"
-                        context="{'group_by': 'state'}"/>
-                         <filter
-                    name="group_by_version"
-                    string="Version"
-                    context="{'group_by': 'odoo_version'}"/>
-            </group>
-                <filter
-        name="running"
-        string="Running"
-        domain="[('pid', '!=', False)]"/>
+                        <filter name="group_state"
+                                string="State"
+                                context="{'group_by': 'state'}"/>
+                                <filter
+                            name="group_by_version"
+                            string="Version"
+                            context="{'group_by': 'odoo_version'}"/>
+                    </group>
+                        <filter
+                name="running"
+                string="Running"
+                domain="[('pid', '!=', False)]"/>
 
-    <filter
-        name="stopped"
-        string="Stopped"
-        domain="[('pid', '=', False)]"/>
-                </search>
-            </field>
-        </record>
+            <filter
+                name="stopped"
+                string="Stopped"
+                domain="[('pid', '=', False)]"/>
+                        </search>
+                    </field>
+                </record>
         <!-- Instance form view -->
         <record id="view_form_instance_id" model="ir.ui.view">
             <field name="name">view.form.instance</field>
@@ -63,7 +63,7 @@
                                 invisible="state != 'draft' or status != 'Stopped'"
                                 groups="instance_management.instance_manager_group"/>
                         <button name="start_server" string="Start" type="object" class="oe_highlight"
-                                invisible="status != 'Stopped'" help="Click to start the instance"/>
+                                invisible="state != 'confirm' or status != 'Stopped'" help="Click to start the instance"/>
                         <button name="stop_server" string="Stop" type="object" class="oe_highlight"
                                 invisible="status == 'Stopped'" help="Click to stop the instance"/>
                         <button name="restart_server" string="Restart" type="object" class="oe_highlight"
@@ -116,10 +116,24 @@
         </record>
 
         <!-- Menu for the Instance module -->
-        <menuitem id="menu_main_instance" name="Instance Management" groups="instance_management.instance_user_group,instance_management.instance_manager_group"/>
-        <menuitem id="menu_instance" name="Instance Management" parent="menu_main_instance" groups="instance_management.instance_user_group,instance_management.instance_manager_group"/>
-        <menuitem id="menu_instance_child" name="Instance" parent="menu_instance" action="action_instance" groups="instance_management.instance_user_group,instance_management.instance_manager_group"/>
+<menuitem
+    id="menu_main_instance"
+    name="Captain"
+    web_icon="instance_management,static/description/icon.png"
+    groups="instance_management.instance_user_group,instance_management.instance_manager_group"/>
 
+<menuitem
+    id="menu_instance"
+    name="Instance Management"
+    parent="menu_main_instance"
+    groups="instance_management.instance_user_group,instance_management.instance_manager_group"/>
+
+<menuitem
+    id="menu_instance_child"
+    name="Instances"
+    parent="menu_instance"
+    action="action_instance"
+    groups="instance_management.instance_user_group,instance_management.instance_manager_group"/>
         <!-- List view of Repo -->
         <record id="view_tree_repo_id" model="ir.ui.view">
             <field name="name">view.list.repo</field>

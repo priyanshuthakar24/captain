@@ -12,9 +12,22 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.modules.module import get_resource_from_path  # moved from odoo.modules in v19
 from odoo.osv import expression
+from odoo.fields import Domain
 
 PID_FILE = '/var/run/'
 
+DEFAULT_SERVER_CONFIG = """[options]
+admin_passwd = captain_v19ce@dm!n
+db_host = False
+db_port = False
+db_user = serpentcs
+db_password = False
+addons_path = /home/serpentcs/workspace/odoo_ce/19.0CE/addons,/home/serpentcs/workspace/odoo_ce/19.0CE/odoo/addons
+log_level = info
+cpu_time_limit = 3600
+limit_time_real = 3600
+http_port = 
+dbfilter = """
 
 class InstanceInstance(models.Model):
     _name = 'instance.instance'
@@ -28,7 +41,7 @@ class InstanceInstance(models.Model):
         ('draft', 'Draft'), 
         ('confirm', 'Confirm')
     ], string='State', default='draft', tracking=True)
-    server_config = fields.Text(string='Server Configuration')
+    server_config = fields.Text(string='Server Configuration',default=DEFAULT_SERVER_CONFIG)
     status = fields.Char(compute="_compute_instance_status", string='Status')
     http_port = fields.Integer(string='Http Port')
     pid = fields.Char(string='Process ID')
@@ -85,7 +98,7 @@ class InstanceInstance(models.Model):
                     with open(config_file, "w", encoding="utf-8") as file:
                         file.write(rec.server_config or '')
         return res
-
+#! New to work on this method to show the live log's
     def download_logfile(self):
         '''Provides log file downloading functionality.'''
         ir_config_para_obj = self.env['ir.config_parameter'].sudo()
@@ -165,13 +178,7 @@ class InstanceInstance(models.Model):
             sudo_password = rec.get_password()
 
             command = f'start-stop-daemon --start --quiet --pidfile {pid_filepath} --chuid {ins_user}:{ins_user} --background --make-pidfile --exec {daemon} -- --config {config_file} --logfile {log_file}'
-            # start_resp = os.system(f'echo {sudo_password}|sudo -S {command}')
-            full_command = f'echo "{sudo_password}" | sudo -S {command}'
-            print("=" * 80)
-            print(full_command)
-            print("=" * 80)
-
-            start_resp = os.system(full_command)
+            start_resp = os.system(f'echo "{sudo_password}"|sudo -S {command}')
             if start_resp != 0:
                 raise UserError(_("Server failed to start. Please check log configurations!"))
             
@@ -237,9 +244,9 @@ class InstanceInstance(models.Model):
 
     @api.model
     def _search(self, domain, offset=0, limit=None, order=None, **kwargs):
-        if self._context.get('is_restrict_instence_based_on_users') and not self.env.user.has_groups('instance_management.instance_manager_group'):
+        if self.env.context.get('is_restrict_instence_based_on_users') and not self.env.user.has_groups('instance_management.instance_manager_group'):
             allowed_ids = self.env.user.with_context(is_restrict_instence_based_on_users=False).instance_ids.ids
-            domain = expression.AND([domain, [('id', 'in', allowed_ids)]])
+            domain = Domain.AND([domain, [('id', 'in', allowed_ids)]])
         return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
 
 class RepoRepo(models.Model):
