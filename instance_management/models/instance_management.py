@@ -30,14 +30,14 @@ class InstanceInstance(models.Model):
     ], string='State', default='draft', tracking=True)
     server_config = fields.Text(string='Server Configuration')
     status = fields.Char(compute="_compute_instance_status", string='Status')
-    xmlrpc_port = fields.Integer(string='XmlRPC Port')
+    http_port = fields.Integer(string='Http Port')
     pid = fields.Char(string='Process ID')
     db_name = fields.Char(string="Database Name")
     requested_by = fields.Char(string="Requested By")
-    long_polling_port = fields.Char(string="LongPolling Port")
+    gevent_port = fields.Char(string="Gevent Port")
 
     _sql_constraints = [
-        ('long_polling_port_unique', 'UNIQUE(long_polling_port)', 'LongPolling Port must be unique!')
+        ('gevent_port_unique', 'UNIQUE(gevent_port)', 'Gevent Port must be unique!')
     ]
 
     def _compute_instance_status(self):
