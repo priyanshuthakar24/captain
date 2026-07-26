@@ -43,10 +43,12 @@ Configure the required System Parameters for:
         'data/instance_data.xml',
         'security/instance_security.xml',
         'security/ir.model.access.csv',
+        'wizard/import_instance_views.xml',
         'views/res_company_view.xml',
         'views/config_parameter_view.xml',
         'views/res_users_view.xml',
         'views/instance_view.xml',
+        
     ],
     'images': [
         'static/description/banner.png',
