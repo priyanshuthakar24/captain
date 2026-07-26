@@ -24,12 +24,12 @@ Odoo Instance Management.
         'security/instance_security.xml',
         'security/ir.model.access.csv',
         #'wizard/download_log_view.xml',
-        'views/instance_view.xml',
         #'wizard/running_port_view.xml',
         #'wizard/run_multiple_ins.xml',
         'views/res_company_view.xml',
         'views/config_parameter_view.xml',
         'views/res_users_view.xml',
+        'views/instance_view.xml',
         #'views/module_info_views.xml',
         #'wizard/check_idle_instance.xml'
     ],
