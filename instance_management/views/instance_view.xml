@@ -40,6 +40,15 @@
                     string="Version"
                     context="{'group_by': 'odoo_version'}"/>
             </group>
+                <filter
+        name="running"
+        string="Running"
+        domain="[('pid', '!=', False)]"/>
+
+    <filter
+        name="stopped"
+        string="Stopped"
+        domain="[('pid', '=', False)]"/>
                 </search>
             </field>
         </record>
@@ -51,7 +60,7 @@
                 <form string="Instance">
                     <header>
                         <button name="validate" string="Validate" type="object" class="oe_highlight"
-                                invisible="state != 'draft' or status != 'draft'"
+                                invisible="state != 'draft' or status != 'Stopped'"
                                 groups="instance_management.instance_manager_group"/>
                         <button name="start_server" string="Start" type="object" class="oe_highlight"
                                 invisible="status != 'Stopped'" help="Click to start the instance"/>
@@ -60,8 +69,8 @@
                         <button name="restart_server" string="Restart" type="object" class="oe_highlight"
                                 invisible="state != 'confirm'" help="Click to restart the instance"/>
 
-                        <!-- <button name="restart_postgres" string="Restart Postgres" invisible="state not in ('confirm','running','stop')" type="object"/>
-                        <button name="check_instance_status" string="Check Status" type="object" invisible="state not in ('confirm','running','stop')" help="Click to Check the status of the instance"/> -->
+                        <button name="restart_postgres" string="Restart Postgres" invisible="state not in ('confirm','running','stop')" type="object" groups="instance_management.instance_manager_group"/>
+                        <!-- <button name="check_instance_status" string="Check Status" type="object" invisible="state not in ('confirm','running','stop')" help="Click to Check the status of the instance"/> -->
                         <button name="download_logfile" string="Download Log File" type="object"
                                 invisible="state != 'confirm'"/>
                         <field name="state" widget="statusbar"/>

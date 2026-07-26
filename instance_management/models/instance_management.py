@@ -3,7 +3,9 @@
 import base64  # Used when downloading log files to transfer binary data
 import os.path # Used to navigate files and directories
 import subprocess # Runs external OS processes
+import logging
 
+_logger = logging.getLogger(__name__)
 from lxml import etree # Used to manipulate XML architectures dynamically
 
 from odoo import _, api, fields, models
@@ -44,7 +46,7 @@ class InstanceInstance(models.Model):
                 pid_filepath = os.path.join(str(PID_FILE), rec.name + '.pid')
                 sudo_password = rec.get_password()
                 command = f'start-stop-daemon --status --pidfile {pid_filepath}'
-                status_res = os.system(f'echo {sudo_password}|sudo -S {command}')
+                status_res = os.system(f'echo "{sudo_password}"|sudo -S {command}')
                 rec.status = 'Running' if status_res == 0 else 'Stopped'
             else:
                 rec.status = 'Stopped'
@@ -185,8 +187,8 @@ class InstanceInstance(models.Model):
             pid_filepath = os.path.join(str(PID_FILE), rec.name + '.pid')
             sudo_password = rec.get_password()
             command = f'start-stop-daemon --stop --quiet --pidfile {pid_filepath} --oknodo --retry 3'
-            os.system(f'echo {sudo_password}|sudo -S {command}')
-            os.system(f'echo {sudo_password}|sudo -S rm -f {pid_filepath}')
+            os.system(f'echo "{sudo_password}"|sudo -S {command}')
+            os.system(f'echo "{sudo_password}"|sudo -S rm -f {pid_filepath}')
             
             rec.message_post(body=_("Server stopped by %s", self.env.user.name))
             rec.pid = False
@@ -203,7 +205,7 @@ class InstanceInstance(models.Model):
             pid_filepath = os.path.join(str(PID_FILE), rec.name + '.pid')
             sudo_password = rec.get_password()
             command = f'start-stop-daemon --status --pidfile {pid_filepath}'
-            ins_res = os.system(f'echo {sudo_password}|sudo -S {command}')
+            ins_res = os.system(f'echo "{sudo_password}"|sudo -S {command}')
             if ins_res == 0:
                 raise UserError(_("Current Instance is Running"))
             else:
@@ -212,31 +214,27 @@ class InstanceInstance(models.Model):
 
     def restart_postgres(self):
         for rec in self:
-            models_dir = get_resource_from_path('instance_management', 'models')
-            if models_dir:
-                os.chdir(models_dir)
             sudo_password = rec.get_password()
-            os.system(f'python3 restart_postgres.py {sudo_password}')
+            
+            # Prepare the command: echoes sudo password into 'sudo -S' to run non-interactively
+            cmd = f'echo "{sudo_password}" | sudo -S systemctl restart postgresql'
+            
+            try:
+                result = subprocess.run(
+                    cmd,
+                    shell=True,
+                    check=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True
+                )
+                _logger.info("PostgreSQL service restarted successfully.")
+            except subprocess.CalledProcessError as e:
+                _logger.error("Failed to restart PostgreSQL: %s", e.stderr)
+                raise UserError(f"Failed to restart PostgreSQL service: {e.stderr}")
+            
         return True
 
-#     @api.model
-#     def _search(self, domain, offset=0, limit=None, order=None, **kwargs):
-#         # Filter instances based on assigned user if restricted flag is set in context
-#         if self._context.get('is_restrict_instence_based_on_users') and not self.env.user.has_group('instance_management.instance_manager_group'):
-#             self.env.cr.execute("""
-#     SELECT instance_id
-#     FROM rel_user_instance
-#     WHERE user_id = %s
-# """, (self.env.uid,))
-
-#         instance_ids = [row[0] for row in self.env.cr.fetchall()]
-
-#         domain = expression.AND([
-#     domain,
-#     [('id', 'in', instance_ids)]
-# ])
-            
-#         return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
     @api.model
     def _search(self, domain, offset=0, limit=None, order=None, **kwargs):
         if self._context.get('is_restrict_instence_based_on_users') and not self.env.user.has_groups('instance_management.instance_manager_group'):

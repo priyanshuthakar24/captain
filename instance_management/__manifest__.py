@@ -3,7 +3,7 @@
 {
     'name': 'Odoo Instance Management',
     'version': '19.0.1.0.0',
-    'author': 'Serpent Consulting Services Pvt. Ltd.',
+    'author': 'Priyanshu Thakar',
     'category': 'Others',
     'license': 'LGPL-3',
     'description': """
@@ -17,7 +17,6 @@ Odoo Instance Management.
 
     Note:- You have to configure system parameter for odoo versions daemon,.conf directory and .log directory.
     """,
-    'website': 'https://www.serpentcs.com',
     'depends': ['mail'],
     'data': [
         'data/instance_data.xml',
