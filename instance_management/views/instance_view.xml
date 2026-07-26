@@ -20,16 +20,6 @@
             </field>
         </record>
 
-        <!-- Instance search view -->
-     <!-- <record id="view_search_instance" model="ir.ui.view">
-    <field name="name">view.search.instance</field>
-    <field name="model">instance.instance</field>
-    <field name="arch" type="xml">
-        <search>
-            <field name="name"/>
-        </search>
-    </field>
-</record> -->
  <record id="view_search_instance" model="ir.ui.view">
             <field name="name">view.search.instance</field>
             <field name="model">instance.instance</field>

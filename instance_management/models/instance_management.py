@@ -163,7 +163,13 @@ class InstanceInstance(models.Model):
             sudo_password = rec.get_password()
 
             command = f'start-stop-daemon --start --quiet --pidfile {pid_filepath} --chuid {ins_user}:{ins_user} --background --make-pidfile --exec {daemon} -- --config {config_file} --logfile {log_file}'
-            start_resp = os.system(f'echo {sudo_password}|sudo -S {command}')
+            # start_resp = os.system(f'echo {sudo_password}|sudo -S {command}')
+            full_command = f'echo "{sudo_password}" | sudo -S {command}'
+            print("=" * 80)
+            print(full_command)
+            print("=" * 80)
+
+            start_resp = os.system(full_command)
             if start_resp != 0:
                 raise UserError(_("Server failed to start. Please check log configurations!"))
             
@@ -213,14 +219,30 @@ class InstanceInstance(models.Model):
             os.system(f'python3 restart_postgres.py {sudo_password}')
         return True
 
+#     @api.model
+#     def _search(self, domain, offset=0, limit=None, order=None, **kwargs):
+#         # Filter instances based on assigned user if restricted flag is set in context
+#         if self._context.get('is_restrict_instence_based_on_users') and not self.env.user.has_group('instance_management.instance_manager_group'):
+#             self.env.cr.execute("""
+#     SELECT instance_id
+#     FROM rel_user_instance
+#     WHERE user_id = %s
+# """, (self.env.uid,))
+
+#         instance_ids = [row[0] for row in self.env.cr.fetchall()]
+
+#         domain = expression.AND([
+#     domain,
+#     [('id', 'in', instance_ids)]
+# ])
+            
+#         return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
     @api.model
     def _search(self, domain, offset=0, limit=None, order=None, **kwargs):
-        # Filter instances based on assigned user if restricted flag is set in context
-        if self._context.get('is_restrict_instence_based_on_users') and not self.env.user.has_group('instance_management.instance_manager_group'):
-            domain = expression.AND([domain, [('id', 'in', self.env.user.instance_ids.ids)]])
-            
+        if self._context.get('is_restrict_instence_based_on_users') and not self.env.user.has_groups('instance_management.instance_manager_group'):
+            allowed_ids = self.env.user.with_context(is_restrict_instence_based_on_users=False).instance_ids.ids
+            domain = expression.AND([domain, [('id', 'in', allowed_ids)]])
         return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
-
 
 class RepoRepo(models.Model):
     _name = 'repo.repo'
