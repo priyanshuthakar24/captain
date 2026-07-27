@@ -2,6 +2,8 @@
 
 import { Component } from "@odoo/owl";
 
-export class InstancesTable extends Component {}
+export class InstancesTable extends Component {
 
-InstancesTable.template = "instance_management.InstancesTable";
+    static template = "instance_management.InstancesTable";
+
+}

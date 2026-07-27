@@ -6,16 +6,16 @@
     <div class="captain-stats">
 
         <StatCard
-            title="'Instances'"
-            value="'0'"
-            subtitle="'All managed instances'"
-            icon="'fa-server'"
-            color="'primary'"
+        title="'Instances'"
+        value="props.state.total_instances"
+        subtitle="'All managed instances'"
+        icon="'fa-server'"
+        color="'primary'"
         />
 
         <StatCard
             title="'Running'"
-            value="'0'"
+            value="props.state.running_instances"
             subtitle="'Currently running'"
             icon="'fa-play-circle'"
             color="'success'"
@@ -23,7 +23,7 @@
 
         <StatCard
             title="'Stopped'"
-            value="'0'"
+            value="props.state.stopped_instances"
             subtitle="'Currently stopped'"
             icon="'fa-stop-circle'"
             color="'danger'"
@@ -31,7 +31,7 @@
 
         <StatCard
             title="'Databases'"
-            value="'0'"
+            value="props.state.databases"
             subtitle="'Available databases'"
             icon="'fa-database'"
             color="'warning'"

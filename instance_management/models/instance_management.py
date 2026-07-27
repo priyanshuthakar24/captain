@@ -251,6 +251,41 @@ class InstanceInstance(models.Model):
             allowed_ids = self.env.user.with_context(is_restrict_instence_based_on_users=False).instance_ids.ids
             domain = Domain.AND([domain, [('id', 'in', allowed_ids)]])
         return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
+    @api.model
+    def get_dashboard_data(self):
+        """
+        Return dashboard statistics.
+        """
+
+        instances = self.search([])
+
+        running = 0
+        stopped = 0
+
+        for rec in instances:
+            if rec.status == "Running":
+                running += 1
+            else:
+                stopped += 1
+
+        recent_instances = []
+
+        for rec in instances[:10]:
+            recent_instances.append({
+                "id": rec.id,
+                "name": rec.name,
+                "version": rec.odoo_version.value if rec.odoo_version else "",
+                "status": rec.status,
+                "database": rec.db_name or "",
+            })
+
+        return {
+            "total_instances": len(instances),
+            "running_instances": running,
+            "stopped_instances": stopped,
+            "databases": len(instances),
+            "recent_instances": recent_instances,
+        }
 
 class RepoRepo(models.Model):
     _name = 'repo.repo'

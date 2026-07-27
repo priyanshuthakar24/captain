@@ -8,7 +8,7 @@
 
         <Header/>
 
-        <Stats/>
+        <Stats state="state"/>
 
         <div class="dashboard-grid">
 
@@ -26,7 +26,7 @@
 
         </div>
 
-        <InstancesTable/>
+        <InstancesTable instances="state.recent_instances"/>
 
     </div>
 
