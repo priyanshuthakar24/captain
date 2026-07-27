@@ -35,6 +35,10 @@ class ImportInstanceWizard(models.TransientModel):
         string="HTTP Port",
         readonly=True,
     )
+    gevent_port = fields.Integer(
+        string="Gevent Port",
+        readonly=True,
+    )
 
     addons_path = fields.Text(
         string="Addons Path",
@@ -84,6 +88,7 @@ class ImportInstanceWizard(models.TransientModel):
         self.database = options.get("dbfilter", "")
 
         self.http_port = int(options.get("http_port", 8069))
+        self.gevent_port=int(options.get("gevent_port",8072))
 
         self.logfile = options.get("logfile", "")
 
@@ -126,6 +131,10 @@ class ImportInstanceWizard(models.TransientModel):
             "name": self.instance_name,
             "config_file": self.config_file,
             "working_directory": self.working_directory,
+            "odoo_version":self.version,
+            "db_name":self.database,
+            "gevent_port":self.gevent_port,
+            "http_port":self.http_port            
         })
 
         return {
