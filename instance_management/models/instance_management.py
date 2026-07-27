@@ -49,12 +49,8 @@ class InstanceInstance(models.Model):
     requested_by = fields.Char(string="Requested By")
     gevent_port = fields.Char(string="Gevent Port")
 
-    config_file = fields.Char(
-    string="Configuration File",
-    required=True,
-    help="Absolute path of the Odoo configuration file.")
-    working_directory = fields.Char(
-    string="Working Directory")
+    config_file = fields.Char(string="Configuration File",help="Absolute path of the Odoo configuration file.")
+    working_directory = fields.Char(string="Working Directory")
     
     _sql_constraints = [
         ('gevent_port_unique', 'UNIQUE(gevent_port)', 'Gevent Port must be unique!')
