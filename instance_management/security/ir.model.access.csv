@@ -1,6 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_instance_instance_user,Instance.instance.user,model_instance_instance,instance_user_group,1,1,0,0
 access_instance_instance_manager,Instance.instance.manager,model_instance_instance,instance_manager_group,1,1,1,1
+access_instance_import_wizard_manager,instance.import.wizard.manager,model_instance_import_wizard,instance_management.instance_manager_group,1,1,1,1
 access_branch_user,branch.user,model_branch_branch,instance_user_group,1,0,0,0
 access_branch_manager,branch.manager,model_branch_branch,instance_manager_group,1,1,1,1
 access_repo_user,repo.repo.user,model_repo_repo,instance_user_group,1,0,0,0

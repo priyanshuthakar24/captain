@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="view_import_instance_wizard_form"
+            model="ir.ui.view">
+
+        <field name="name">instance.import.wizard.form</field>
+
+        <field name="model">instance.import.wizard</field>
+
+        <field name="arch" type="xml">
+            <form string="Import Existing Instance">
+    <group>
+        <field name="config_file"/>
+    </group>
+
+    <group string="Instance Information">
+        <group>
+            <field name="instance_name"/>
+            <field name="version"/>
+            <field name="database"/>
+            <field name="http_port"/>
+        </group>
+        <group>
+            <field name="working_directory"/>
+            <field name="data_dir"/>
+            <field name="logfile"/>
+        </group>
+    </group>
+    <group>
+        <field name="addons_path" widget="text"/>
+    </group>
+
+    <footer>
+        <button name="action_load_configuration" type="object" string="Load Configuration" class="btn-primary"/>
+        <button name="action_import" type="object" string="Import" class="btn-primary" invisible="not instance_name"/>
+        <button string="Cancel" special="cancel"/>
+    </footer>
+</form>
+
+        </field>
+
+    </record>
+
+
+    <record id="action_import_instance_wizard"
+            model="ir.actions.act_window">
+
+        <field name="name">Import Existing Instance</field>
+
+        <field name="res_model">instance.import.wizard</field>
+
+        <field name="view_mode">form</field>
+
+        <field name="target">new</field>
+        <!-- <field name="groups_id" eval="[(4, ref('instance_management.instance_manager_group'))]"/> -->
+
+
+    </record>
+
+</odoo>
