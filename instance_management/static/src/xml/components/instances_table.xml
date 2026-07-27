@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="instance_management.InstancesTable">
+
+    <div class="dashboard-panel">
+
+        <div class="panel-title">
+
+            Running Instances
+
+        </div>
+
+        <table class="captain-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+                    <th>Version</th>
+                    <th>Status</th>
+                    <th>Database</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td colspan="4" class="text-center">
+
+                        No running instances
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</t>
+
+</templates>

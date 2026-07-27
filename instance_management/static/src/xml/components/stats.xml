@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="instance_management.Stats">
+
+    <div class="captain-stats">
+
+        <StatCard
+            title="'Instances'"
+            value="'0'"
+            subtitle="'All managed instances'"
+            icon="'fa-server'"
+            color="'primary'"
+        />
+
+        <StatCard
+            title="'Running'"
+            value="'0'"
+            subtitle="'Currently running'"
+            icon="'fa-play-circle'"
+            color="'success'"
+        />
+
+        <StatCard
+            title="'Stopped'"
+            value="'0'"
+            subtitle="'Currently stopped'"
+            icon="'fa-stop-circle'"
+            color="'danger'"
+        />
+
+        <StatCard
+            title="'Databases'"
+            value="'0'"
+            subtitle="'Available databases'"
+            icon="'fa-database'"
+            color="'warning'"
+        />
+
+    </div>
+
+</t>
+
+</templates>

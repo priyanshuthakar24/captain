@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="instance_management.Header">
+
+        <div class="captain-header">
+
+            <div>
+
+                <h1>Captain Dashboard</h1>
+
+                <p>
+                    Manage all your Odoo environments from one place.
+                </p>
+
+            </div>
+
+        </div>
+
+    </t>
+
+</templates>

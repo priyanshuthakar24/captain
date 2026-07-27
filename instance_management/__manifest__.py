@@ -44,12 +44,25 @@ Configure the required System Parameters for:
         'security/instance_security.xml',
         'security/ir.model.access.csv',
         'wizard/import_instance_views.xml',
+        'views/dashboard_view.xml',   
         'views/res_company_view.xml',
         'views/config_parameter_view.xml',
         'views/res_users_view.xml',
         'views/instance_view.xml',
         
     ],
+    
+    'assets': {
+    'web.assets_backend': [
+        'instance_management/static/src/js/dashboard.js',
+        'instance_management/static/src/js/components/*.js',
+        
+        'instance_management/static/src/xml/dashboard.xml',
+        'instance_management/static/src/xml/components/*.xml',
+        
+        'instance_management/static/src/scss/dashboard.scss',
+    ],
+    },
     'images': [
         'static/description/banner.png',
     ],

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="instance_management.ChartPlaceholder">
+
+    <div class="dashboard-panel">
+
+        <div class="panel-title">
+            Instance Status
+        </div>
+
+        <div class="panel-body chart-placeholder">
+
+            📊
+
+            <p>Chart will be added here</p>
+
+        </div>
+
+    </div>
+
+</t>
+
+</templates>

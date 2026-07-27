@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="instance_management.CaptainDashboard">
+
+    <div class="captain-dashboard">
+
+        <Header/>
+
+        <Stats/>
+
+        <div class="dashboard-grid">
+
+            <div class="left-panel">
+
+                <ChartPlaceholder/>
+
+            </div>
+
+            <div class="right-panel">
+
+                <RecentActivity/>
+
+            </div>
+
+        </div>
+
+        <InstancesTable/>
+
+    </div>
+
+</t>
+
+</templates>

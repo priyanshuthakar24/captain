@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="instance_management.StatCard">
+
+        <div t-attf-class="captain-stat-card #{props.color}">
+
+            <div class="card-icon">
+                <i t-att-class="'fa ' + props.icon"/>
+            </div>
+
+            <div class="card-title">
+                <t t-esc="props.title"/>
+            </div>
+
+            <div class="card-value">
+                <t t-esc="props.value"/>
+            </div>
+
+            <div class="card-subtitle">
+                <t t-esc="props.subtitle"/>
+            </div>
+
+        </div>
+
+    </t>
+
+</templates>
