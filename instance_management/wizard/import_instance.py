@@ -131,7 +131,7 @@ class ImportInstanceWizard(models.TransientModel):
             "name": self.instance_name,
             "config_file": self.config_file,
             "working_directory": self.working_directory,
-            "odoo_version":self.version,
+            #"odoo_version":self.version,
             "db_name":self.database,
             "gevent_port":self.gevent_port,
             "http_port":self.http_port            
