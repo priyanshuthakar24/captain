@@ -8,26 +8,25 @@
 
         <Header/>
 
-        <Stats state="state"/>
+        <Stats state="state" openInstances.bind="openInstances"/>
 
         <div class="dashboard-grid">
 
             <div class="left-panel">
 
-                <ChartPlaceholder/>
+                <ChartPlaceholder state="state"/>
 
             </div>
 
             <div class="right-panel">
 
-                <RecentActivity/>
+                <RecentActivity activities="state.recent_activity"/>
 
             </div>
 
         </div>
 
         <InstancesTable instances="state.recent_instances"/>
-
     </div>
 
 </t>

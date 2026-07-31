@@ -3,7 +3,10 @@
 
     <t t-name="instance_management.StatCard">
 
-        <div t-attf-class="captain-stat-card #{props.color}">
+      <div
+    t-attf-class="captain-stat-card #{props.color}"
+    t-att-class="props.onClick ? 'clickable' : ''"
+    t-on-click="props.onClick || (() => {})">
 
             <div class="card-icon">
                 <i t-att-class="'fa ' + props.icon"/>

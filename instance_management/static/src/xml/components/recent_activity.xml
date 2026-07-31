@@ -14,23 +14,47 @@
 
         <div class="activity-list">
 
-            <div class="activity-item">
-                🚀 Instance demo_v19 created
-            </div>
+    <t t-if="props.activities.length">
+
+        <t t-foreach="props.activities"
+           t-as="activity"
+           t-key="activity.id">
 
             <div class="activity-item">
-                🟢 demo_v18 started
+
+                <div class="activity-message">
+                    <t t-out="activity.message"/>
+                </div>
+
+                <div class="activity-meta">
+                    <strong>
+                        <t t-esc="activity.instance"/>
+                    </strong>
+
+                    •
+
+                    <t t-esc="activity.author"/>
+
+                    •
+
+                    <t t-esc="activity.date"/>
+                </div>
+
             </div>
 
-            <div class="activity-item">
-                🔴 test_instance stopped
-            </div>
+        </t>
 
-            <div class="activity-item">
-                💾 Backup completed
-            </div>
+    </t>
 
+    <t t-else="">
+
+        <div class="text-center text-muted">
+            No recent activity
         </div>
+
+    </t>
+
+</div>
 
     </div>
 

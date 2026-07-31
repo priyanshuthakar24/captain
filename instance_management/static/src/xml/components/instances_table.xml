@@ -23,59 +23,50 @@
 
         </thead>
 
-        <tbody>
+      <tbody>
 
-            <t t-if="props.instances.length">
+    <t t-if="props.instances.length">
 
-                <t t-foreach="props.instances"
-                   t-as="instance"
-                   t-key="instance.id">
+        <t t-foreach="props.instances"
+           t-as="instance"
+           t-key="instance.id">
 
-                    <tr>
+            <tr>
 
-                        <td>
-                            <t t-esc="instance.name"/>
-                        </td>
+                <td>
+                    <t t-esc="instance.name"/>
+                </td>
 
-                        <td>
-                            <t t-esc="instance.version"/>
-                        </td>
+                <td>
+                    <t t-esc="instance.version"/>
+                </td>
 
-                        <td>
+                <td>
+                     <span
+        t-att-class="'status-badge ' + (instance.status === 'Running' ? 'status-running' : 'status-stopped')">
+        <t t-esc="instance.status"/>
+    </span>
+                </td>
 
-                            <span t-att-class="'badge ' + (instance.status === 'Running' ? 'bg-success' : 'bg-danger')">
+                <td>
+                    <t t-esc="instance.database"/>
+                </td>
 
-                                <t t-esc="instance.status"/>
+            </tr>
 
-                            </span>
+        </t>
 
-                        </td>
+    </t>
 
-                        <td>
-                            <t t-esc="instance.database"/>
-                        </td>
+    <t t-else="">
+        <tr>
+            <td colspan="4" class="text-center">
+                No instances found
+            </td>
+        </tr>
+    </t>
 
-                    </tr>
-
-                </t>
-
-            </t>
-
-            <t t-else="">
-
-                <tr>
-
-                    <td colspan="4" class="text-center">
-
-                        No Instances Found
-
-                    </td>
-
-                </tr>
-
-            </t>
-
-        </tbody>
+</tbody>
 
     </table>
 

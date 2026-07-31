@@ -2,24 +2,20 @@
 
 <templates xml:space="preserve">
 
-<t t-name="instance_management.ChartPlaceholder">
+    <t t-name="instance_management.ChartPlaceholder">
 
-    <div class="dashboard-panel">
+        <div class="dashboard-panel">
 
-        <div class="panel-title">
-            Instance Status
-        </div>
+            <div class="panel-title">
+                Instance Status
+            </div>
 
-        <div class="panel-body chart-placeholder">
-
-            📊
-
-            <p>Chart will be added here</p>
+            <div class="chart-container">
+                <canvas t-ref="chartCanvas"/>
+            </div>
 
         </div>
 
-    </div>
-
-</t>
+    </t>
 
 </templates>

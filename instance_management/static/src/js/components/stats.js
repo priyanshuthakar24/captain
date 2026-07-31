@@ -10,5 +10,8 @@ export class Stats extends Component {
     static components = {
         StatCard,
     };
-
+static props = {
+    state: Object,
+    openInstances: Function,
+};
 }

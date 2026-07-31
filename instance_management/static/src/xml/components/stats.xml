@@ -6,12 +6,13 @@
     <div class="captain-stats">
 
         <StatCard
-        title="'Instances'"
-        value="props.state.total_instances"
-        subtitle="'All managed instances'"
-        icon="'fa-server'"
-        color="'primary'"
-        />
+    title="'Instances'"
+    value="props.state.total_instances"
+    subtitle="'All managed instances'"
+    icon="'fa-server'"
+    color="'primary'"
+    onClick="props.openInstances"
+/>
 
         <StatCard
             title="'Running'"

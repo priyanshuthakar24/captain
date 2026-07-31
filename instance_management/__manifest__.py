@@ -54,6 +54,8 @@ Configure the required System Parameters for:
     
     'assets': {
     'web.assets_backend': [
+        'instance_management/static/lib/chartjs/chart.umd.js',
+        
         'instance_management/static/src/js/dashboard.js',
         'instance_management/static/src/js/components/*.js',
         

@@ -222,3 +222,58 @@
 
 }
 
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-running {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status-stopped {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+
+.activity-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-message {
+    font-size: 14px;
+    color: #333;
+}
+
+.activity-meta {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #888;
+}
+
+.chart-container {
+    position: relative;
+    height: 320px;
+}
+
+
+.captain-stat-card.clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.captain-stat-card.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}

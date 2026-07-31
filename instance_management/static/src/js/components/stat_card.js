@@ -2,6 +2,16 @@
 
 import { Component } from "@odoo/owl";
 
-export class StatCard extends Component {}
+export class StatCard extends Component {
 
-StatCard.template = "instance_management.StatCard";
+    static template = "instance_management.StatCard";
+
+    static props = {
+        title: String,
+        value: Number,
+        subtitle: String,
+        icon: String,
+        color: String,
+        onClick: { type: Function, optional: true },
+    };
+}

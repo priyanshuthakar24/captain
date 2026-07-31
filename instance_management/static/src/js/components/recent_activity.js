@@ -2,6 +2,10 @@
 
 import { Component } from "@odoo/owl";
 
-export class RecentActivity extends Component {}
+export class RecentActivity extends Component {
+    static template = "instance_management.RecentActivity";
 
-RecentActivity.template = "instance_management.RecentActivity";
+    static props = {
+        activities: Array,
+    };
+}

@@ -13,6 +13,7 @@ from odoo.exceptions import UserError
 from odoo.modules.module import get_resource_from_path  # moved from odoo.modules in v19
 from odoo.osv import expression
 from odoo.fields import Domain
+from odoo.tools import html2plaintext
 
 PID_FILE = '/var/run/'
 
@@ -253,38 +254,58 @@ class InstanceInstance(models.Model):
         return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
     @api.model
     def get_dashboard_data(self):
-        """
-        Return dashboard statistics.
-        """
+        instance_obj = self.with_context(
+        is_restrict_instence_based_on_users=True
+    )
 
-        instances = self.search([])
+        instances = instance_obj.search([], limit=10)
 
         running = 0
         stopped = 0
 
-        for rec in instances:
+        for rec in instance_obj.search([]):
             if rec.status == "Running":
                 running += 1
             else:
                 stopped += 1
+        messages = self.env["mail.message"].search(
+            [
+                ("model", "=", "instance.instance"),
+            ],
+            order="date desc",
+            limit=5,
+        )
+        recent_activity = []
 
-        recent_instances = []
+        for msg in messages:
+            if not msg.body:
+                continue
 
-        for rec in instances[:10]:
-            recent_instances.append({
-                "id": rec.id,
-                "name": rec.name,
-                "version": rec.odoo_version.value if rec.odoo_version else "",
-                "status": rec.status,
-                "database": rec.db_name or "",
+            recent_activity.append({
+                "id": msg.id,
+                "instance": msg.record_name,
+                "message": html2plaintext(msg.body),
+                "date": msg.date.strftime("%d %b %Y %H:%M"),
+                "author": msg.author_id.name if msg.author_id else "System",
             })
-
+        #_logger.info("Recent Activity Count: %s", len(recent_activity))
+        #_logger.info("Recent Activity: %s", recent_activity)
         return {
-            "total_instances": len(instances),
+            "total_instances": instance_obj.search_count([]),
             "running_instances": running,
             "stopped_instances": stopped,
-            "databases": len(instances),
-            "recent_instances": recent_instances,
+            "databases": instance_obj.search_count([]),
+            "recent_instances": [
+                {
+                    "id": rec.id,
+                    "name": rec.name,
+                    "version": rec.odoo_version.value if rec.odoo_version else "",
+                    "status": rec.status,
+                    "database": rec.db_name or "",
+                }
+                for rec in instances
+            ],
+            "recent_activity": recent_activity,
         }
 
 class RepoRepo(models.Model):
