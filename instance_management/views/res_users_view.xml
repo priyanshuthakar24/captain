@@ -10,8 +10,8 @@
                     <page string="GIT configurations" groups="instance_management.instance_manager_group">
                         <group>
                             <group>
-                                <field name="git_id"/>
-                                <field name="git_pass" password="True"/>
+                                <field name="git_username"/>
+                                <field name="git_pat" password="True"/>
                             </group>
                             <group>
                                 <field name="instance_ids" widget="many2many_tags"/>

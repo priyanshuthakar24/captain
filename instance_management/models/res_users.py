@@ -6,13 +6,13 @@ from odoo import fields, models
 class ResUser(models.Model):
     _inherit = 'res.users'
 
-    git_id = fields.Char(
-        'GIT Login',
+    git_username = fields.Char(
+        'GIT Username',
         help='Login ID for GIT to access the branch repository'
     )
-    git_pass = fields.Char(
-        'GIT Password',
-        help='GIT Password access the branch repository'
+    git_pat = fields.Char(
+        'GIT Personal Token',
+        help='GIT Personal access token to take the pull'
     )
     instance_ids = fields.Many2many(
         'instance.instance',
