@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="instance_management.InstancesTable">
+
+<div class="dashboard-panel">
+
+    <div class="panel-title">
+        Recent Instances
+    </div>
+
+    <table class="captain-table">
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Status</th>
+                <th>Database</th>
+            </tr>
+
+        </thead>
+
+      <tbody>
+
+    <t t-if="props.instances.length">
+
+        <t t-foreach="props.instances"
+           t-as="instance"
+           t-key="instance.id">
+
+            <tr>
+
+                <td>
+                    <t t-esc="instance.name"/>
+                </td>
+
+                <td>
+                    <t t-esc="instance.version"/>
+                </td>
+
+                <td>
+                     <span
+        t-att-class="'status-badge ' + (instance.status === 'Running' ? 'status-running' : 'status-stopped')">
+        <t t-esc="instance.status"/>
+    </span>
+                </td>
+
+                <td>
+                    <t t-esc="instance.database"/>
+                </td>
+
+            </tr>
+
+        </t>
+
+    </t>
+
+    <t t-else="">
+        <tr>
+            <td colspan="4" class="text-center">
+                No instances found
+            </td>
+        </tr>
+    </t>
+
+</tbody>
+
+    </table>
+
+</div>
+
+</t>
+
+</templates>

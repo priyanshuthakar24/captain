@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="instance_management.CaptainDashboard">
+
+    <div class="captain-dashboard">
+
+        <Header/>
+
+        <Stats state="state" openInstances.bind="openInstances"/>
+
+        <div class="dashboard-grid">
+
+            <div class="left-panel">
+
+                <ChartPlaceholder state="state"/>
+
+            </div>
+
+            <div class="right-panel">
+
+                <RecentActivity activities="state.recent_activity"/>
+
+            </div>
+
+        </div>
+
+        <InstancesTable instances="state.recent_instances"/>
+    </div>
+
+</t>
+
+</templates>

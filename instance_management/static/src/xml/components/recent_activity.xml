@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="instance_management.RecentActivity">
+
+    <div class="dashboard-panel">
+
+        <div class="panel-title">
+
+            Recent Activity
+
+        </div>
+
+        <div class="activity-list">
+
+    <t t-if="props.activities.length">
+
+        <t t-foreach="props.activities"
+           t-as="activity"
+           t-key="activity.id">
+
+            <div class="activity-item">
+
+                <div class="activity-message">
+                    <t t-out="activity.message"/>
+                </div>
+
+                <div class="activity-meta">
+                    <strong>
+                        <t t-esc="activity.instance"/>
+                    </strong>
+
+                    •
+
+                    <t t-esc="activity.author"/>
+
+                    •
+
+                    <t t-esc="activity.date"/>
+                </div>
+
+            </div>
+
+        </t>
+
+    </t>
+
+    <t t-else="">
+
+        <div class="text-center text-muted">
+            No recent activity
+        </div>
+
+    </t>
+
+</div>
+
+    </div>
+
+</t>
+
+</templates>
