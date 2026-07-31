@@ -370,15 +370,20 @@ class BranchBranch(models.Model):
                 raise UserError(
                     _("Git Pull Failed\n\n%s") % result.stderr
                 )
+            output = result.stdout.strip()
+
+            if not output:
+                output = _("Git pull completed successfully.")
+
 
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": _("Success"),
-                "message": _("Latest code pulled successfully."),
+                "title": _("Git Pull"),
+                "message": output,
                 "type": "success",
-                "sticky": False,
+                "sticky": True,
             },
         }
 
