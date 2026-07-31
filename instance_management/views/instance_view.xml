@@ -59,7 +59,7 @@
             <field name="arch" type="xml">
                 <form string="Instance">
                     <header>
-                        <button name="%(action_import_instance_wizard)d" type="action" string="Import Existing" class="btn-secondary" icon="fa-download" groups="instance_management.instance_manager_group"/>
+                        <!-- <button name="%(action_import_instance_wizard)d" type="action" string="Import Existing" class="btn-secondary" icon="fa-download" groups="instance_management.instance_manager_group"/> -->
                         <button name="validate" string="Validate" type="object" class="oe_highlight"
                                 invisible="state != 'draft' or status != 'Stopped'"
                                 groups="instance_management.instance_manager_group"/>
