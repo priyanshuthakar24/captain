@@ -288,8 +288,7 @@ class InstanceInstance(models.Model):
                 "date": msg.date.strftime("%d %b %Y %H:%M"),
                 "author": msg.author_id.name if msg.author_id else "System",
             })
-        #_logger.info("Recent Activity Count: %s", len(recent_activity))
-        #_logger.info("Recent Activity: %s", recent_activity)
+
         return {
             "total_instances": instance_obj.search_count([]),
             "running_instances": running,
@@ -326,20 +325,62 @@ class BranchBranch(models.Model):
     instance_id = fields.Many2one('instance.instance', string='Instance')
 
     def get_revisions(self):
+        user = self.env.user
+
+
         for rec in self:
+
             if not rec.repo_id:
-                raise UserError(_("Please select Repository First!"))
-            if rec.branch_path and rec.repo_id:
-                if not os.path.isdir(rec.branch_path):
-                    raise UserError(_("Directory %s not found!", rec.branch_path))
-                os.chdir(rec.branch_path)
-                repo = rec.repo_id.code
-                pull_resp = subprocess.call(f"{repo} pull", shell=True)
-                if pull_resp != 0:
-                    raise UserError(_("Something went wrong, please check server logs."))
-                else:
-                    raise UserError(_("Code updated successfully!"))
-        return True
+                raise UserError(_("Please select a repository."))
+
+            if not rec.branch_path:
+                raise UserError(_("Branch path is missing."))
+
+            if not os.path.isdir(rec.branch_path):
+                raise UserError(
+                    _("Directory not found:\n%s") % rec.branch_path
+                )
+
+            username = user.git_username
+            token = user.git_pat
+
+            if not username:
+                raise UserError(_("GitHub Username is missing in your User Preferences."))
+
+            if not token:
+                raise UserError(_("Please configure your Git Personal Access Token in your User Preferences."))
+
+            auth = base64.b64encode(
+                f"{username}:{token}".encode()
+            ).decode()
+            
+            result = subprocess.run(
+                [
+                    "git",
+                    "-c",
+                    f"http.extraHeader=Authorization: Basic {auth}",
+                    "pull",
+                ],
+                cwd=rec.branch_path,
+                capture_output=True,
+                text=True,
+            )
+
+            if result.returncode != 0:
+                raise UserError(
+                    _("Git Pull Failed\n\n%s") % result.stderr
+                )
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Success"),
+                "message": _("Latest code pulled successfully."),
+                "type": "success",
+                "sticky": False,
+            },
+        }
 
 
 class InstanceInfo(models.Model):
