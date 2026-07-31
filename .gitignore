@@ -15,6 +15,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!instance_management/static/lib/
 lib64/
 parts/
 sdist/
