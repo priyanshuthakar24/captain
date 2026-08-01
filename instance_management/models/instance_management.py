@@ -213,3 +213,40 @@ class InstanceInstance(models.Model):
             ],
             "recent_activity": recent_activity,
         }
+        
+    def action_bulk_start(self):
+        failed = []
+
+        for instance in self:
+            try:
+                if instance.status != "Running":
+                    instance._get_instance_service().start(instance)
+            except Exception as e:
+                failed.append(f"{instance.name}: {e}")
+                _logger.exception("Failed to start %s", instance.name)
+
+        if failed:
+            raise UserError(
+                _("Some instances failed to start:\n\n%s") % "\n".join(failed)
+            )
+
+        return True
+    
+    def action_bulk_stop(self):
+        for instance in self:
+            try:
+                if instance.status == "Running":
+                    instance._get_instance_service().stop(instance)
+            except Exception as e:
+                _logger.exception(e)
+
+        return True
+    
+    def action_bulk_restart(self):
+        for instance in self:
+            try:
+                instance._get_instance_service().restart(instance)
+            except Exception as e:
+                _logger.exception(e)
+
+        return True

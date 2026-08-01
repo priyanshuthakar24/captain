@@ -1,10 +1,11 @@
 # See LICENSE file for full copyright and licensing details.
 
 import os
-
+import  logging
 from odoo import _
 from odoo.exceptions import UserError
 
+_logger = logging.getLogger(__name__)
 from ..utils.file_utils import ensure_config_file, ensure_log_file, get_instance_pid_path, write_server_config
 from ..utils.system_utils import get_system_parameter, require_system_parameter, run_command
 

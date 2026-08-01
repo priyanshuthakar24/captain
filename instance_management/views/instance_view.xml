@@ -115,7 +115,54 @@
             <field name="view_mode">list,form</field>
             <field name="context">{'is_restrict_instence_based_on_users': True}</field>
         </record>
+<!-- Bulk Start -->
+<record id="action_bulk_start_instances" model="ir.actions.server">
+    <field name="name">Start Selected Instances</field>
+    <field name="model_id" ref="model_instance_instance"/>
+    <field name="binding_model_id" ref="model_instance_instance"/>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_bulk_start()
+action = {
+    "type": "ir.actions.client",
+    "tag": "reload",
+}
 
+    </field>
+</record>
+
+<record id="action_bulk_stop_instances" model="ir.actions.server">
+    <field name="name">Stop Selected Instances</field>
+    <field name="model_id" ref="model_instance_instance"/>
+    <field name="binding_model_id" ref="model_instance_instance"/>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_bulk_stop()
+action = {
+    "type": "ir.actions.client",
+    "tag": "reload",
+}
+
+    </field>
+</record>
+
+<record id="action_bulk_restart_instances" model="ir.actions.server">
+    <field name="name">Restart Selected Instances</field>
+    <field name="model_id" ref="model_instance_instance"/>
+    <field name="binding_model_id" ref="model_instance_instance"/>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_bulk_restart()
+action = {
+    "type": "ir.actions.client",
+    "tag": "reload",
+}
+
+    </field>
+</record>
         <!-- Menu for the Instance module -->
 <menuitem
     id="menu_main_instance"
