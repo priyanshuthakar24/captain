@@ -1,0 +1,12 @@
+DEFAULT_SERVER_CONFIG = """[options]
+admin_passwd = captain_v19ce@dm!n
+db_host = 127.0.0.1
+db_port = 6342
+db_user = serpentcs
+db_password = False
+addons_path = /home/serpentcs/workspace/odoo_ce/19.0CE/addons,/home/serpentcs/workspace/odoo_ce/19.0CE/odoo/addons
+log_level = info
+cpu_time_limit = 3600
+limit_time_real = 3600
+http_port = 
+dbfilter = """
