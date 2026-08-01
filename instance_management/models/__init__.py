@@ -5,3 +5,6 @@ from . import res_company
 from . import config_parameter
 from . import res_users
 from . import module_info
+from . import branch
+from . import repo
+from . import instance_info
