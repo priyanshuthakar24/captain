@@ -250,3 +250,75 @@ class InstanceInstance(models.Model):
                 _logger.exception(e)
 
         return True
+    
+    def get_latest_logs(self):
+        self.ensure_one()
+
+        log_path = require_system_parameter(
+            self.env,
+            "instance_logfile_path",
+        )
+
+        logfile = os.path.join(
+            log_path,
+            f"{self.name}.log",
+        )
+
+        if not os.path.isfile(logfile):
+            return "No log file found."
+
+        return read_log_tail(
+            logfile,
+            size=15000,
+        )
+    
+    def action_live_logs(self):
+        self.ensure_one()
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "captain_live_log",
+            "params": {
+                "instanceId": self.id,
+                "instanceName": self.name,
+            },
+        }
+        
+    import os
+
+    def get_live_logs(self, offset=0):
+        self.ensure_one()
+
+        log_path = require_system_parameter(
+            self.env,
+            "instance_logfile_path",
+        )
+
+        logfile = os.path.join(
+            log_path,
+            f"{self.name}.log",
+        )
+
+        if not os.path.isfile(logfile):
+            return {
+                "logs": "",
+                "offset": 0,
+            }
+
+        filesize = os.path.getsize(logfile)
+
+        if offset > filesize:
+            offset = 0
+
+        if offset == 0:
+            offset = max(0, filesize - 20000)
+
+        with open(logfile, "rb") as fp:
+            fp.seek(offset)
+            logs = fp.read()
+            offset = fp.tell()
+
+        return {
+            "logs": logs.decode("utf-8", errors="ignore"),
+            "offset": offset,
+        }

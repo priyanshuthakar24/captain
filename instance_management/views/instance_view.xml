@@ -52,6 +52,7 @@
                         </search>
                     </field>
                 </record>
+                
         <!-- Instance form view -->
         <record id="view_form_instance_id" model="ir.ui.view">
             <field name="name">view.form.instance</field>
@@ -59,6 +60,7 @@
             <field name="arch" type="xml">
                 <form string="Instance">
                     <header>
+                    
                         <!-- <button name="%(action_import_instance_wizard)d" type="action" string="Import Existing" class="btn-secondary" icon="fa-download" groups="instance_management.instance_manager_group"/> -->
                         <button name="validate" string="Validate" type="object" class="oe_highlight"
                                 invisible="state != 'draft' or status != 'Stopped'"
@@ -74,6 +76,7 @@
                         <!-- <button name="check_instance_status" string="Check Status" type="object" invisible="state not in ('confirm','running','stop')" help="Click to Check the status of the instance"/> -->
                         <button name="download_logfile" string="Download Log File" type="object"
                                 invisible="state != 'confirm'"/>
+                        <button name="action_live_logs" string="Live Logs" type="object" class="btn-secondary" invisible="state != 'confirm'"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>

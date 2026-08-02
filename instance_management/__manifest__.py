@@ -43,7 +43,10 @@ Configure the required System Parameters for:
         'data/instance_data.xml',
         'security/instance_security.xml',
         'security/ir.model.access.csv',
+        
         'wizard/import_instance_views.xml',
+        'wizard/live_log_wizard.xml',
+        
         'views/dashboard_view.xml',   
         'views/res_company_view.xml',
         'views/config_parameter_view.xml',
@@ -63,6 +66,7 @@ Configure the required System Parameters for:
         'instance_management/static/src/xml/components/*.xml',
         
         'instance_management/static/src/scss/dashboard.scss',
+        'instance_management/static/src/scss/live_log_dialog.scss',
     ],
     },
     'images': [
