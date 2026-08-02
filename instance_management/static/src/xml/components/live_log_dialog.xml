@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="instance_management.LiveLogDialog">
+
+        <Dialog
+            title="'Live Logs - ' + props.instanceName"
+            size="'xl'">
+
+            <div class="captain_live_log_toolbar">
+
+    <span
+        t-attf-class="badge #{state.autoRefresh ? 'bg-success' : 'bg-warning'}">
+
+        <t t-if="state.autoRefresh">
+            🟢 LIVE
+        </t>
+
+        <t t-else="">
+            ⏸ PAUSED
+        </t>
+
+    </span>
+
+    <button
+        class="btn btn-primary ms-3"
+        t-on-click="refreshLogs">
+
+        <i class="fa fa-refresh me-1"/>
+        Reload
+
+    </button>
+
+    <button
+        class="btn btn-secondary ms-2"
+        t-on-click="toggleRefresh">
+
+        <t t-if="state.autoRefresh">
+
+            <i class="fa fa-pause me-1"/>
+            Pause
+
+        </t>
+
+        <t t-else="">
+
+            <i class="fa fa-play me-1"/>
+            Resume
+
+        </t>
+
+    </button>
+
+    <button
+        class="btn btn-info ms-2"
+        t-on-click="copyLogs">
+
+        <i class="fa fa-copy me-1"/>
+        Copy
+
+    </button>
+
+    <button
+        class="btn btn-success ms-2"
+        t-on-click="downloadLogs">
+
+        <i class="fa fa-download me-1"/>
+        Download
+
+    </button>
+
+    <button
+        class="btn btn-danger ms-2"
+        t-on-click="clearLogs">
+
+        <i class="fa fa-trash me-1"/>
+        Clear Screen
+
+    </button>
+
+</div>
+
+            <div
+                id="captain_live_log"
+                class="captain_live_log">
+
+                <pre>
+<t t-esc="state.logs"/>
+                </pre>
+
+            </div>
+
+        </Dialog>
+
+    </t>
+
+</templates>
