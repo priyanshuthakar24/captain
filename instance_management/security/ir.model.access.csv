@@ -14,3 +14,4 @@ access_idle_instance_user,idle.instance.user,model_idle_instance,base.group_user
 access_download_log_user,download.log.user,model_download_log,base.group_user,1,1,1,1
 access_run_multiple_ins_user,run.multiple.ins.user,model_run_multiple_ins,base.group_user,1,1,1,1
 access_running_port_user,running.port.user,model_running_port,base.group_user,1,1,1,1
+access_live_log_wizard,access.live.log.wizard,model_instance_live_log_wizard,instance_management.instance_user_group,1,1,1,1
