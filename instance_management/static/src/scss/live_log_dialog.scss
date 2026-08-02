@@ -1,28 +1,23 @@
 .captain_live_log_toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 12px;
 }
 
 .captain_live_log {
-
     height: 650px;
-
     overflow-y: auto;
-
     background: #111;
-
     color: #00ff66;
-
     border-radius: 8px;
-
     padding: 16px;
-
-    font-family: monospace;
-
-    white-space: pre-wrap;
-
+    font-family: Consolas, Monaco, monospace;
     font-size: 13px;
+    line-height: 1.5;
 }
 
 .captain_live_log pre {
     margin: 0;
+    white-space: pre-wrap;
 }

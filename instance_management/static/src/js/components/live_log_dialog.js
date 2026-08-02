@@ -55,7 +55,15 @@ export class LiveLogDialog extends Component {
                 logContainer.scrollHeight - 20;
         }
 
+        if (this.loading) {
+            return;
+        }
+
+        this.loading = true;
+
         try {
+
+            const isFirstLoad = this.state.firstLoad;
 
             const result = await this.orm.call(
                 "instance.instance",
@@ -66,18 +74,18 @@ export class LiveLogDialog extends Component {
                 ]
             );
 
-            const isFirstLoad = this.state.firstLoad;
-
             if (isFirstLoad) {
                 this.state.logs = result.logs;
                 this.state.firstLoad = false;
             } else if (result.logs) {
                 this.state.logs += result.logs;
-                const lines = this.state.logs.split("\n");
+            }
 
-                if (lines.length > 1000) {
-                    this.state.logs = lines.slice(-1000).join("\n");
-                }
+            // Keep only last 1000 lines
+            const lines = this.state.logs.split("\n");
+
+            if (lines.length > 1000) {
+                this.state.logs = lines.slice(-1000).join("\n");
             }
 
             this.state.offset = result.offset;
@@ -90,13 +98,11 @@ export class LiveLogDialog extends Component {
                     return;
                 }
 
-                // First open → jump to bottom
                 if (isFirstLoad) {
                     logContainer.scrollTop = logContainer.scrollHeight;
                     return;
                 }
 
-                // Afterwards → only if user was already at bottom
                 if (shouldScroll) {
                     logContainer.scrollTop = logContainer.scrollHeight;
                 }
@@ -104,12 +110,20 @@ export class LiveLogDialog extends Component {
             }, 50);
 
         } catch (err) {
+
             console.error("Failed to load logs:", err);
+
+        } finally {
+
+            this.loading = false;
+
         }
+
     }
 
     toggleRefresh() {
         this.state.autoRefresh = !this.state.autoRefresh;
+        console.log('refresh clicked')
         this.notification.add(
             this.state.autoRefresh
                 ? "Live refresh resumed."
@@ -179,6 +193,15 @@ export class LiveLogDialog extends Component {
         a.click();
 
         URL.revokeObjectURL(url);
+
+    }
+    async refreshLogs() {
+
+        this.state.logs = "";
+        this.state.offset = 0;
+        this.state.firstLoad = true;
+
+        await this.loadLogs();
 
     }
 }

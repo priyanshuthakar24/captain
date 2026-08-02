@@ -74,9 +74,9 @@
 
                         <button name="restart_postgres" string="Restart Postgres" invisible="state not in ('confirm','running','stop')" type="object" groups="instance_management.instance_manager_group"/>
                         <!-- <button name="check_instance_status" string="Check Status" type="object" invisible="state not in ('confirm','running','stop')" help="Click to Check the status of the instance"/> -->
-                        <button name="download_logfile" string="Download Log File" type="object"
-                                invisible="state != 'confirm'"/>
-                        <button name="action_live_logs" string="Live Logs" type="object" class="btn-secondary" invisible="state != 'confirm'"/>
+                        <!-- <button name="download_logfile" string="Download Log File" type="object"
+                                invisible="state != 'confirm'"/> -->
+                        <button name="action_live_logs" string="Live Logs" type="object" class="oe_highlight" invisible="state != 'confirm'"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
